@@ -1,28 +1,24 @@
 import { getAuth,onAuthStateChanged ,signOut ,signInWithEmailAndPassword , createUserWithEmailAndPassword } from "firebase/auth";
 import app from "./firebaseConfig"
+import { getDatabase , ref, set} from "firebase/database";
+
 
 
 const auth = getAuth(app);
+const database = getDatabase(app);
+
 
 
 let signUpuser  = (obj) => {
 
 
-    createUserWithEmailAndPassword(auth, obj.email, obj.password)
+    return createUserWithEmailAndPassword(auth, obj.email, obj.password)
   
 }
-// let loginUser  = () => {
-//     signInWithEmailAndPassword(auth, obj.email, obj.password)
-//     .then((userCredential) => {
-//       // Signed in 
-//       const user = userCredential.user;
-//       // ...
-//     })
-//     .catch((error) => {
-//       const errorCode = error.code;
-//       const errorMessage = error.message;
-//     });
-// }
+let loginUser  = (obj) => {
+   return signInWithEmailAndPassword(auth, obj.email, obj.password)
+    
+}
 // let logoutUser  = () => {
 //     const auth = getAuth();
 //     signOut(auth).then(() => {
@@ -45,4 +41,16 @@ let signUpuser  = (obj) => {
 //       });
 // }
 
-export {signUpuser}
+
+// =====================Database Methods==============================
+
+let sendData =(obj,nodeName,id)=>{
+ 
+    let reference = ref(database ,` ${nodeName}  / ${id ? id : ""}`);
+    
+    return set(reference,obj);
+}
+
+
+
+export {signUpuser,loginUser,sendData}

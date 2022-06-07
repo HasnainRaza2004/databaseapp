@@ -2,7 +2,8 @@ import { Box } from '@mui/material'
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { signUpuser } from '../config/firebase/firebasemethods';
+import { sendData, signUpuser } from '../config/firebase/firebasemethods';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -10,6 +11,8 @@ import { signUpuser } from '../config/firebase/firebasemethods';
 
 const SignUp = () => {
 const [userObj,setuserObj]=useState({});
+const navigate = useNavigate()
+
 
 let signUp =()=>{
   if(!userObj.email){
@@ -26,15 +29,13 @@ console.log(userObj)
   signUpuser(userObj)
   .then((res)=>{
     console.log(res)
+    sendData(userObj,"Users",res.user.uid).then(()=>{
+      console.log("Succesfully Saved");
+    })
+navigate("/login")
   }).catch((err)=>{
     console.log(err)
   })
-// .then((result) => {
-//   console.log(result)
-// })
-// .catch((err) => {
-//   console.log(err)
-// });
 }
 
   return (

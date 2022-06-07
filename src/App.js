@@ -1,11 +1,11 @@
-import Routing from "./Routers/Routing";
+import Routing from "./config/Routers/Routing";
 
 
 
 function App() {
   return (
     <div className="App">
-<Routing />
+<Routing/>
     </div>
   );
 }

@@ -4,15 +4,17 @@ import {
     Routes,
     Route
   } from "react-router-dom";
-import Login from '../Pages/Login';
-import SignUp from '../Pages/SignUp';
+import Home from '../../Pages/Home';
+import Login from '../../Pages/Login';
+import SignUp from '../../Pages/SignUp';
 
 const Routing = () => {
   return (
 
     <Router>
         <Routes>
-            <Route path='/' element={<SignUp/>} ></Route>
+            <Route path='/:id' element={<Home />} ></Route>
+            <Route path='signup' element={<SignUp/>} ></Route>
             <Route path='login' element={<Login/>} ></Route>
         </Routes>
     </Router>
